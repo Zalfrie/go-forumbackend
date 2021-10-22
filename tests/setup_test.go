@@ -14,7 +14,8 @@ import (
 var server = controllers.Server{}
 var userInstance = models.User{}
 
-/*func TestMain(m *testing.M) {
+//untuk menggunakan circleci
+func TestMain(m *testing.M) {
 	//Since we add our .env in .gitignore, Circle CI cannot see it, so see the else statement
 	if _, err := os.Stat("./../.env"); !os.IsNotExist(err) {
 		var err error
@@ -27,9 +28,10 @@ var userInstance = models.User{}
 		CIBuild()
 	}
 	os.Exit(m.Run())
-}*/
+}
 
-func TestMain(m *testing.M) {
+//untuk tidak menggunakan circleci
+/*func TestMain(m *testing.M) {
 	var err error
 	err = godotenv.Load(os.ExpandEnv("./../.env"))
 	if err != nil {
@@ -37,7 +39,7 @@ func TestMain(m *testing.M) {
 	}
 	Database()
 	os.Exit(m.Run())
-}
+}*/
 
 //When using CircleCI
 func CIBuild() {
@@ -101,7 +103,7 @@ func seedUsers() ([]models.User, error) {
 	users := []models.User{
 		models.User{
 			Username: "steven",
-			Email: "steven@example.com",
+			Email:    "steven@example.com",
 			Password: "password",
 		},
 		models.User{
@@ -123,7 +125,7 @@ func seedUsers() ([]models.User, error) {
 func seedOneUser() (models.User, error) {
 	user := models.User{
 		Username: "Pet",
-		Email: "pet@example.com",
+		Email:    "pet@example.com",
 		Password: "password",
 	}
 	err := server.DB.Model(&models.User{}).Create(&user).Error
